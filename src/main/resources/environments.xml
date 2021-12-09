@@ -18,7 +18,7 @@
         </databases>
 
         <users>
-            <user alias="Admin1">
+            <user alias="Администратор1">
                 <name>DivHead12</name>
                 <password>qwerty$4</password>
                 <role>Администратор</role>
