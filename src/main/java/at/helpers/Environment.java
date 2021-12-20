@@ -62,15 +62,13 @@ public class Environment {
             for (int i = 0; i < databases.getLength(); ++i) {
                 Node database = databases.item(i);
                 Map<String, String> databaseParameters = new HashMap();
-                databaseParameters.put("serviceName", this.getTagValue(database, "serviceName"));
-                databaseParameters.put("protocol", this.getTagValue(database, "protocol"));
+                databaseParameters.put("driver", this.getTagValue(database, "driver"));
                 databaseParameters.put("host", this.getTagValue(database, "host"));
-                databaseParameters.put("user", this.getTagValue(database, "user"));
-                databaseParameters.put("userPass", this.getTagValue(database, "userPass"));
                 databaseParameters.put("port", this.getTagValue(database, "port"));
-                databaseParameters.put("databaseName", this.getTagValue(database, "databaseName"));
-                databaseParameters.put("databasePass", this.getTagValue(database, "databasePass"));
-
+                databaseParameters.put("service", this.getTagValue(database, "service"));
+                databaseParameters.put("login", this.getTagValue(database, "login"));
+                databaseParameters.put("password", this.getTagValue(database, "password"));
+                databaseParameters.put("schema", this.getTagValue(database, "schema"));
                 this.databases.put(this.getTagAttribute(database, "alias"), databaseParameters);
             }
 
@@ -78,7 +76,7 @@ public class Environment {
             System.out.println("Tag 'databases' is undefined");
             Assertions.fail("Параметры баз данных не определены!");
         }
-    }//todo Поправить как будет доступ к БД
+    }
 
     private void getEnvironment(String environment) {
         Element root = this.document.getDocumentElement();

@@ -1,0 +1,6 @@
+<aspectj>
+    <aspects>
+        <aspect name="at.utils.allure.StepsAspects"/>
+        <aspect name="at.utils.allure.AttachmentsAspects"/>
+    </aspects>
+</aspectj>

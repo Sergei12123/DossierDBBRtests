@@ -1,8 +1,14 @@
 package at.helpers;
 
 
+import at.managers.DatabaseManager;
+import at.models.Database;
+import at.parser.Context;
+import at.utils.allure.AllureHelper;
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,10 +21,12 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
-
+@Log4j2
 public class HookHelper {
+    private static final String DB_NAME = "dbbr_db";
     private static Environment environment;
     /**
      * Инициализация переменных для заданного стенда
@@ -84,4 +92,51 @@ public class HookHelper {
         }
     }
 
+    /**
+     * Подключение к базе данных
+     * @param environment свойства среды
+     */
+    @Step("Инициализация БД")
+    public static void initDatabase(Environment environment) {
+        if (DatabaseManager.getDatabase(DB_NAME) == null) {
+            Map<String, String> databaseProp = environment.databases.get(DB_NAME);
+            Database database = DatabaseManager.getDatabase(DB_NAME, databaseProp.get("driver"),
+                    databaseProp.get("host"),
+                    databaseProp.get("port"),
+                    databaseProp.get("service"),
+                    databaseProp.get("login"),
+                    databaseProp.get("password"));
+            log.info("Получение данных БД "+database.getAlias()+" прошло успешно");
+        }
+    }
+    /**
+     * Закрыть подключение к БД
+     */
+    public static void clearDatabaseConnections() {
+        if (DatabaseManager.getDatabase(DB_NAME) != null) {
+            DatabaseManager.setDatabase(null, DB_NAME);
+        }
+    }
+    /**
+     * Сделать скриншот для отчета
+     */
+    public static void makeScreenshot() {
+        AllureHelper.addAttachmentsToCase();
+    }
+
+    /**
+     * Вывод контекста
+     */
+    @Step("Вывод содержимого контекста")
+    public static void printContext() {
+        String context = Context.getSavedVariables().entrySet().stream()
+                .map(e -> e.getKey().concat(" : ").concat(e.getValue()))
+                .collect(Collectors.joining("\n"));
+        context = context.concat("\n\nObjects:\n\n");
+        context += Context.getSavedObjects().entrySet().stream().map(e -> e.getKey().concat(" : ")
+                .concat(e.getValue().toString())
+                .concat(" ")).collect(Collectors.joining("\n"));
+        AllureHelper.makeAttachTXT("Context", context);
+        log.info("Context:\n".concat(context));
+    }
 }
