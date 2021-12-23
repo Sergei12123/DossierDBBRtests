@@ -10,7 +10,6 @@ import java.util.Objects;
 public class PreconditionSteps {
     @Пусть("^существует пользователь (.*)")
     public void isUserExist(String role){
-        new DAOTest().getRequestStatus();
         boolean flag= false;
         for(User user: HookHelper.getEnvironment().users){
             if(Objects.equals(user.getRole(), role)){

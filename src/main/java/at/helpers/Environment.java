@@ -40,7 +40,7 @@ public class Environment {
         NodeList nodeList = this.environment.getElementsByTagName("users");
         if (nodeList != null && nodeList.getLength() >= 1) {
             NodeList users = ((Element) nodeList.item(0)).getElementsByTagName("user");
-            this.users = new User[nodeList.getLength()];
+            this.users = new User[users.getLength()];
             for (int i = 0; i < users.getLength(); ++i) {
                 Node user = users.item(i);
                 this.users[i] = new User(this.getTagAttribute(user, "alias"),

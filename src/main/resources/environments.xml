@@ -20,7 +20,17 @@
             <user alias="Администратор1">
                 <name>DivHead12</name>
                 <password>qwerty$4</password>
-                <role>Администратор</role>
+                <role>CUSTOMER_HEAD</role>
+            </user>
+            <user alias="Администратор2">
+                <name>pu-aib</name>
+                <password>qwerty$4</password>
+                <role>DBBR_HEAD</role>
+            </user>
+            <user alias="Пользователь1">
+                <name>pu-user</name>
+                <password>qwerty$4</password>
+                <role>DBBR_EMPLOYEE</role>
             </user>
         </users>
     </environment>

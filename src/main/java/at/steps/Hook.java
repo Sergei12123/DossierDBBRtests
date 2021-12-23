@@ -4,6 +4,7 @@ import at.helpers.HookHelper;
 import at.parser.Context;
 import at.utils.allure.AllureHelper;
 import at.utils.allure.StepsAspects;
+import com.codeborne.selenide.Configuration;
 import io.cucumber.java.After;
 import io.cucumber.java.AfterStep;
 import io.cucumber.java.Before;
@@ -13,6 +14,7 @@ import io.qameta.allure.AllureLifecycle;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.AfterEach;
+
 
 /**
  * Класс содержит действия для каждого сценария или шага
@@ -30,6 +32,10 @@ public class Hook {
     @Before(order = 2)
     public void initializeBrowser() {
         HookHelper.initWebDriver();
+    }
+    @Before(order = 3)
+    public void setConfigTimeout() {
+        Configuration.timeout=10000;
     }
 
     /**

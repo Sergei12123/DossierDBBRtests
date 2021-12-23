@@ -10,10 +10,10 @@ public class CreateApplicationPage {
     public void chooseOptyType(String type){
         switch (type){
             case "Заявка на визуальный контроль":
-                $(byText("Создание заявки на визуальный контроль")).click();
+                $(byText("Создать заявку на визуальный контроль")).parent().click();
                 break;
             case "Заявка на проверку персональных данных":
-                $(byText("Создание заявки на проверку персональных данных")).click();
+                $(byText("Создать заявку на проверку персональных данных")).parent().click();
                 break;
         }
     }
