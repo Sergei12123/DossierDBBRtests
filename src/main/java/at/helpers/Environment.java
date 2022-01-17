@@ -1,7 +1,8 @@
 package at.helpers;
 
+import at.models.Organization;
 import at.models.User;
-import org.junit.jupiter.api.Assertions;
+import org.junit.Assert;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -18,6 +19,7 @@ public class Environment {
     private Document document;
     public Map<String, String> urls;
     public Map<String, Map<String, String>> databases=new HashMap<>();
+    public Organization[] organizations;
     public User[] users;
     private Element environment;
 
@@ -34,6 +36,27 @@ public class Environment {
         this.getUrls();
         this.getDatabaseProperties();
         this.getUsers();
+        this.getOrganizations();
+    }
+
+    private void getOrganizations() {
+        NodeList nodeList = this.environment.getElementsByTagName("organizations");
+        if (nodeList != null && nodeList.getLength() >= 1) {
+            NodeList organizations = ((Element) nodeList.item(0)).getElementsByTagName("organization");
+            this.organizations = new Organization[organizations.getLength()];
+            for (int i = 0; i < organizations.getLength(); ++i) {
+                Node org = organizations.item(i);
+                this.organizations[i] = new Organization(this.getTagAttribute(org, "alias"),
+                        this.getTagValue(org, "inn"),
+                        this.getTagValue(org, "ogrn"),
+                        this.getTagValue(org, "name"),
+                        this.getTagValue(org, "regionCD"),
+                        this.getTagValue(org, "actTypeCD"));
+            }
+        } else {
+            System.out.println("Tag 'organizations' is undefined");
+            Assert.fail("Список организаций не определен!");
+        }
     }
 
     private void getUsers() {
@@ -50,7 +73,7 @@ public class Environment {
             }
         } else {
             System.out.println("Tag 'users' is undefined");
-            Assertions.fail("Список пользователей не определен!");
+            Assert.fail("Список пользователей не определен!");
         }
     }
 
@@ -74,7 +97,7 @@ public class Environment {
 
         } else {
             System.out.println("Tag 'databases' is undefined");
-            Assertions.fail("Параметры баз данных не определены!");
+            Assert.fail("Параметры баз данных не определены!");
         }
     }
 
@@ -91,11 +114,11 @@ public class Environment {
             }
             if (this.environment == null) {
                 System.out.println("Environment '" + environment + "' is not found");
-                Assertions.fail("Тестовое окружение '" + environment + "' не найдено!");
+                Assert.fail("Тестовое окружение '" + environment + "' не найдено!");
             }
         } else {
             System.out.println("Tag 'environment' is undefined");
-            Assertions.fail("Тестовое окружение не определено!");
+            Assert.fail("Тестовое окружение не определено!");
         }
     }
 
@@ -111,7 +134,7 @@ public class Environment {
             }
         } else {
             System.out.println("Tag 'endpoints' is undefined");
-            Assertions.fail("Список endpoints не определен!");
+            Assert.fail("Список endpoints не определен!");
         }
     }
 
@@ -123,7 +146,7 @@ public class Environment {
         } catch (Exception var4) {
             System.out.println("Parse Environment XML failed");
             var4.printStackTrace();
-            Assertions.fail("Не удалось распарсить XML документ с параметрами тестового окружения!");
+            Assert.fail("Не удалось распарсить XML документ с параметрами тестового окружения!");
         }
     }
 
@@ -133,7 +156,7 @@ public class Environment {
             return this.getTagValue(nodeList.item(0));
         } else {
             System.out.println("Tag by name '" + tagName + "' is not found");
-            Assertions.fail("Тег '" + tagName + "' не найден!");
+            Assert.fail("Тег '" + tagName + "' не найден!");
             return null;
         }
     }

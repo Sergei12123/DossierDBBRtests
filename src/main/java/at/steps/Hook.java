@@ -13,7 +13,6 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.AllureLifecycle;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
-import org.junit.jupiter.api.AfterEach;
 
 
 /**
@@ -35,7 +34,7 @@ public class Hook {
     }
     @Before(order = 3)
     public void setConfigTimeout() {
-        Configuration.timeout=10000;
+        Configuration.timeout=40000;
     }
 
     /**

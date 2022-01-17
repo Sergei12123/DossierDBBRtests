@@ -2,7 +2,7 @@ package pages.CustomerEmployeePages;
 
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
-import org.junit.jupiter.api.Assertions;
+import org.junit.Assert;
 
 import static com.codeborne.selenide.Selectors.byTagName;
 import static com.codeborne.selenide.Selectors.byText;
@@ -15,7 +15,7 @@ public class InformationAboutOrganizationPage {
         $$(byTagName("button")).find(Condition.text(buttonName)).click();
         if(buttonName.equals("Найти организацию")){
             String inn=$(byText("ИНН")).parent().parent().$(byTagName("input")).getAttribute("value");
-            Assertions.assertNotNull(inn);
+            Assert.assertNotNull(inn);
         }
     }
 

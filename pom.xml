@@ -21,16 +21,63 @@
         <selenium-support.version>3.141.59</selenium-support.version>
         <slf4j.version>1.7.30</slf4j.version>
         <commons-lang3.version>3.10</commons-lang3.version>
-        <maven.surefire.version>2.22.2</maven.surefire.version>
+        <maven.surefire.version>2.22.0</maven.surefire.version>
         <aspectj.version>1.9.7</aspectj.version>
         <maven.compiler.versiom>3.7.0</maven.compiler.versiom>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <cucumber.plugin>at.utils.allure.AllureCucumberJvmOverride</cucumber.plugin>
         <allure.version>1.4.19</allure.version>
 
+        <thread.count>2</thread.count>
     </properties>
 
     <profiles>
+        <profile>
+            <id>runByTagsOrdered</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven.surefire.version}</version>
+                        <configuration>
+                            <argLine>
+                                -Dfile.encoding=${maven.compiler.encoding}
+                                -Dcucumber.options="--plugin ${cucumber.plugin} "
+                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                            </argLine>
+                            <testFailureIgnore>true</testFailureIgnore>
+                            <includes>
+                                <include>**/RunByTagTests.java</include>
+                            </includes>
+                            <systemProperties>
+                                <property>
+                                    <name>allure.results.directory</name>
+                                    <value>${project.build.directory}/allure-results</value>
+                                </property>
+                            </systemProperties>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.apache.maven.surefire</groupId>
+                                <artifactId>surefire-junit47</artifactId>
+                                <version>${maven.surefire.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>${maven.compiler.versiom}</version>
+                        <configuration>
+                            <encoding>${maven.compiler.encoding}</encoding>
+                            <source>${maven.compiler.source}</source>
+                            <target>${maven.compiler.target}</target>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>runByTagsParallel</id>
             <build>
@@ -40,19 +87,18 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>${maven.surefire.version}</version>
                         <configuration>
-                            <forkCount>4</forkCount>
-                            <reuseForks>false</reuseForks>
+                            <argLine>
+                                -Dfile.encoding=${maven.compiler.encoding}
+                                -Dcucumber.options="--plugin ${cucumber.plugin} "
+                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                            </argLine>
+                            <testFailureIgnore>true</testFailureIgnore>
+                            <parallel>methods</parallel>
+                            <threadCount>${thread.count}</threadCount>
+                            <perCoreThreadCount>false</perCoreThreadCount>
                             <includes>
                                 <include>**/RunByTagTests.java</include>
                             </includes>
-                            <testFailureIgnore>true</testFailureIgnore>
-                            <perCoreThreadCount>false</perCoreThreadCount>
-                            <useSystemClassLoader>false</useSystemClassLoader>
-                            <argLine>
-                                -Dfile.encoding=UTF-8
-                                -Dcucumber.options="--plugin ${cucumber.plugin} --plugin pretty"
-                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                            </argLine>
                             <systemProperties>
                                 <property>
                                     <name>allure.results.directory</name>
@@ -60,6 +106,13 @@
                                 </property>
                             </systemProperties>
                         </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.apache.maven.surefire</groupId>
+                                <artifactId>surefire-junit47</artifactId>
+                                <version>${maven.surefire.version}</version>
+                            </dependency>
+                        </dependencies>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -96,17 +149,6 @@
             <artifactId>selenide</artifactId>
             <version>${selenide.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
@@ -150,11 +192,6 @@
             <version>${allure-cucumber6.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-junit5</artifactId>
-            <version>${allure-junit5.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
@@ -175,11 +212,6 @@
             <version>1.18.22</version>
         </dependency>
         <dependency>
-            <groupId>org.junit.vintage</groupId>
-            <artifactId>junit-vintage-engine</artifactId>
-            <version>5.8.2</version>
-        </dependency>
-        <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj.version}</version>
@@ -194,8 +226,10 @@
             <artifactId>ojdbc8</artifactId>
             <version>21.3.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
     </dependencies>
-
-
-
 </project>

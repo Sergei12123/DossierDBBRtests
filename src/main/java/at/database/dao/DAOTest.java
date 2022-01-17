@@ -12,13 +12,9 @@ public class DAOTest extends DatabaseDAO {
      * @return
      */
     public String getRequestStatus() {
-
         String query = "select * from ACT_GE_PROPERTY";
-
         stepAllureQueryText(query);
         ArrayList<Map<String, String>> result = this.database.select(query);
-
         return (result.size() > 0) ? result.get(0).get("name") : null;
-
     }
 }

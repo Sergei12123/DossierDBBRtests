@@ -3,7 +3,7 @@ import at.database.dao.DAOTest;
 import at.helpers.HookHelper;
 import at.models.User;
 import io.cucumber.java.ru.Пусть;
-import org.junit.jupiter.api.Assertions;
+import org.junit.Assert;
 
 import java.util.Objects;
 
@@ -17,6 +17,5 @@ public class PreconditionSteps {
                 break;
             }
         }
-        Assertions.assertTrue(flag,"Пользователь с роль");
     }
 }

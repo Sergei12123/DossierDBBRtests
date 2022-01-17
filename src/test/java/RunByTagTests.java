@@ -11,7 +11,11 @@ import org.junit.runner.RunWith;
         features = "src/test/java",
         glue = "at.steps",
 //        tags = "@Integration and @OldCash and @Ready and @Final and @ScoringMock"
+//        tags = "@LegendOfTomorrow"
         tags = "@Ready"
+//        tags = "@Ksenia"
 )
-public class RunByTagTests {
+
+public class RunByTagTests
+{
 }

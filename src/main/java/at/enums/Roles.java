@@ -3,10 +3,10 @@ package at.enums;
 import lombok.Getter;
 
 public enum Roles {
-    CUSTOMER_EMPLOYEE("CUSTOMER_EMPLOYEE"),
-    CUSTOMER_HEAD("CUSTOMER_HEAD"),
-    DBBR_HEAD("DBBR_HEAD"),
-    DBBR_EMPLOYEE("DBBR_EMPLOYEE"),
+    CUSTOMER_EMPLOYEE("Сотрудник подразделения-инициатора"),
+    CUSTOMER_HEAD("Руководитель подразделения-инициатора"),
+    DBBR_HEAD("Руководитель ДББР"),
+    DBBR_EMPLOYEE("Сотрудник ДББР"),
     USER("Пользователь");
     @Getter
     private final String role;

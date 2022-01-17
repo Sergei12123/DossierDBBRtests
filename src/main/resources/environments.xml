@@ -16,6 +16,44 @@
             </database>
         </databases>
 
+        <organizations>
+            <organization alias="0621">
+                <name>СОАО «ВСК»</name>
+                <inn>7710026574</inn>
+                <ogrn>1027700186062</ogrn>
+                <actTypeCD>NFO</actTypeCD>
+                <regionCD>77</regionCD>
+            </organization>
+            <organization alias="2209">
+                <name>ПАО Банк «ФК Открытие»</name>
+                <inn>7706092528</inn>
+                <ogrn>1027739019208</ogrn>
+                <actTypeCD>KO</actTypeCD>
+                <regionCD>77</regionCD>
+            </organization>
+            <organization alias="-1">
+                <name>МФК «БЫСТРОДЕНЬГИ»</name>
+                <inn>7325081622</inn>
+                <ogrn>1087325005899</ogrn>
+                <actTypeCD>NFO</actTypeCD>
+                <regionCD>77</regionCD>
+            </organization>
+            <organization alias="1978">
+                <name>ПАО «МОСКОВСКИЙ КРЕДИТНЫЙ БАНК»</name>
+                <inn>7734202860</inn>
+                <ogrn>1027739555282</ogrn>
+                <actTypeCD>SZKO</actTypeCD>
+                <regionCD>77</regionCD>
+            </organization>
+            <organization alias="3202">
+                <name>АО НОКССБАНК</name>
+                <inn>3442028061</inn>
+                <ogrn>1023400000018</ogrn>
+                <actTypeCD>KO</actTypeCD>
+                <regionCD>34</regionCD>
+            </organization>
+        </organizations>
+
         <users>
             <user alias="Администратор1">
                 <name>DivHead12</name>
