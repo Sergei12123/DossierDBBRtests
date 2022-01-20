@@ -1,5 +1,6 @@
 package pages;
 
+import at.utils.allure.AllureHelper;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import io.qameta.allure.Step;
@@ -43,5 +44,17 @@ public class UniversalPage {
     @Step("Проверка доступности кнопки")
     public static void checkButtonEnabled(String buttonName){
         $$(byTagName("button")).find(Condition.text(buttonName)).shouldBe(Condition.exist).shouldBe(Condition.enabled).shouldBe(Condition.visible);
+    }
+
+
+    public static boolean checkError(){
+        return $(byText("Произошла системная ошибка")).exists();
+    }
+
+    public static void processingError(){
+        $(byText("Произошла системная ошибка")).parent().parent().parent().parent().find(byText("Подробности")).click();
+        String textError=$$(byTagName("button")).find(Condition.text("Скопировать в буфер")).parent().find(byTagName("textarea")).getText();
+        AllureHelper.makeAttachTXT("Текст ошибки",textError);
+        Assert.fail("Произошла системная ошибка\nТекст ошибки:\n"+textError);
     }
 }

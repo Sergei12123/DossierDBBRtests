@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static pages.UniversalPage.checkError;
+import static pages.UniversalPage.processingError;
 
 @Aspect
 @Log4j2
@@ -41,11 +43,11 @@ public class StepsAspects {
         //Sonar, go away!
     }
 
-    public static void setScenario(Scenario sc){
+    public static void setScenario(Scenario sc) {
         scenario.set(sc);
     }
 
-    public static Scenario getScenario(){
+    public static Scenario getScenario() {
         return scenario.get();
     }
 
@@ -137,12 +139,17 @@ public class StepsAspects {
         //Sonar, go away!
     }
 
+
     @Before("anyMethod() && withStepAnnotation()")
     public void stepStart(JoinPoint joinPoint) {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Step step = methodSignature.getMethod().getAnnotation(Step.class);
+        String uuid = UUID.randomUUID().toString();
         String name = AspectUtils.getName(step.value(), joinPoint);
+        List<Parameter> parameters = AspectUtils.getParameters(methodSignature, joinPoint.getArgs());
         log.info("Начало шага ".concat(name));
+        StepResult result = (new StepResult()).setName(name).setParameters(parameters);
+        getLifecycle().startStep(uuid, result);
     }
 
 
@@ -154,5 +161,47 @@ public class StepsAspects {
         Step step = methodSignature.getMethod().getAnnotation(Step.class);
         String name = AspectUtils.getName(step.value(), joinPoint);
         log.debug("Шаг ".concat(name).concat(" выполнился"));
+        getLifecycle().updateStep(s -> s.setStatus(Status.PASSED));
+        getLifecycle().stopStep();
+        if (HookHelper.ready && checkError())
+            processingError();
+    }
+
+    @Before("withCucumberStepAnnotation1()" +
+            " || withCucumberStepAnnotation2()" +
+            " || withCucumberStepAnnotation3()" +
+            " || withCucumberStepAnnotation4()" +
+            " || withCucumberStepAnnotation5()" +
+            " || withCucumberStepAnnotation6()" +
+            " || withCucumberStepAnnotation7()" +
+            " || withCucumberStepAnnotation8()" +
+            " || withCucumberStepAnnotation9()" +
+            " || withCucumberStepAnnotation10()" +
+            " || withCucumberStepAnnotation11()" +
+            " || withCucumberStepAnnotation12()" +
+            " || withCucumberStepAnnotation13()" +
+            " || withCucumberStepAnnotation14()")
+    public void beforeRunningCucumberSteps() {
+        if (HookHelper.ready && checkError())
+            processingError();
+    }
+
+    @After("withCucumberStepAnnotation1()" +
+            " || withCucumberStepAnnotation2()" +
+            " || withCucumberStepAnnotation3()" +
+            " || withCucumberStepAnnotation4()" +
+            " || withCucumberStepAnnotation5()" +
+            " || withCucumberStepAnnotation6()" +
+            " || withCucumberStepAnnotation7()" +
+            " || withCucumberStepAnnotation8()" +
+            " || withCucumberStepAnnotation9()" +
+            " || withCucumberStepAnnotation10()" +
+            " || withCucumberStepAnnotation11()" +
+            " || withCucumberStepAnnotation12()" +
+            " || withCucumberStepAnnotation13()" +
+            " || withCucumberStepAnnotation14()")
+    public void afterRunningCucumberSteps() {
+        if (HookHelper.ready && checkError())
+            processingError();
     }
 }

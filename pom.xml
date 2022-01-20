@@ -27,7 +27,8 @@
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <cucumber.plugin>at.utils.allure.AllureCucumberJvmOverride</cucumber.plugin>
         <allure.version>1.4.19</allure.version>
-
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <thread.count>2</thread.count>
     </properties>
 

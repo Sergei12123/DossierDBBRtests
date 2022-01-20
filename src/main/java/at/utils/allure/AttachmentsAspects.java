@@ -57,6 +57,7 @@ public class AttachmentsAspects {
         Attachment attachment = methodSignature.getMethod().getAnnotation(Attachment.class);
         byte[] bytes = result instanceof byte[] ? (byte[]) result : Objects.toString(result).getBytes(StandardCharsets.UTF_8);
         String name = attachment.value().isEmpty() ? methodSignature.getName() : NamingUtils.processNameTemplate(attachment.value(), AspectUtils.getParametersMap(joinPoint));
+        getLifecycle().addAttachment(name, attachment.type(), attachment.fileExtension(), bytes);
     }
 
 }

@@ -35,12 +35,13 @@ public class Hook {
     @Before(order = 3)
     public void setConfigTimeout() {
         Configuration.timeout=40000;
+        HookHelper.ready=true;
     }
 
     /**
      * Сделать скриншот если тест упал
      */
-    @After(order = 1)
+    @After(order = 2)
     public void makeScreenshotIfFail(Scenario scenario) {
         AllureHelper.execIgnoreException("Сделать скриншот при падении теста", () ->
         {
@@ -71,9 +72,10 @@ public class Hook {
     /**
      * Очистить контекст
      */
-    @After(order = 2)
+    @After(order = 3)
     @Step("Очистка контекста")
     public void clearContext() {
+        HookHelper.ready=false;
         AllureHelper.execIgnoreException("Очистка", () ->
         {
             Context.clearLocalStorage();

@@ -28,6 +28,7 @@ import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 public class HookHelper {
     private static final String DB_NAME = "dbbr_db";
     private static Environment environment;
+    public static boolean ready=false;
     /**
      * Инициализация переменных для заданного стенда
      * @return Environment - свойство в формате xml
