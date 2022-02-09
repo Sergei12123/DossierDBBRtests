@@ -124,12 +124,19 @@ public class UniversalSteps {
                     case "Отправить на согласование":
                         checkWidgetExist("Мои текущие заявки");
                         break;
+                    case "Отменить заявку":
+                        checkWidgetExist("Мои текущие заявки");
+                        break;
                 }
                 break;
             case "Информация о заявке":
                 new InfoAboutOptyPage().clickButton(buttonName);
                 switch (buttonName){
                     case "Согласовать":
+                        checkWidgetExist("Мои текущие заявки");
+                        new OptysPage().checkOptyAbsence(opty.getNumber());
+                        break;
+                    case "На доработку":
                         checkWidgetExist("Мои текущие заявки");
                         new OptysPage().checkOptyAbsence(opty.getNumber());
                         break;

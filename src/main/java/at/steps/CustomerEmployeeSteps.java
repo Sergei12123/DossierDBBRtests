@@ -126,6 +126,18 @@ public class CustomerEmployeeSteps {
         checkButtonEnabled("Заявка исполнена");
     }
 
+    @И("выбирает отправленную на доработку заявку")
+    public void chooseRejectedOpty() {
+        checkWidgetExist("Мои текущие заявки");
+        Opty opty=(Opty) Context.getSavedObject("Заявка");
+        new OptysPage().chooseOpty(opty.getNumber());
+        new InfoAboutOptyPage().checkAllWidgets();
+        new InfoAboutOptyPage().checkAllOptyData((Map<String, String>) Context.getSavedObject("Информация о мероприятии"),
+                (Organization) Context.getSavedObject("Организация"),
+                (Map<String, String>) Context.getSavedObject("Сведения об объекте проверки"));
+        checkButtonEnabled("Отправить на согласование");
+    }
+
     @И("очищает поля с данными о проверяемой организации")
     public void cleanAllOranizationData() {
         InformationAboutOrganizationPage page=new InformationAboutOrganizationPage();
