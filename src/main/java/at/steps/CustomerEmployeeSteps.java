@@ -66,6 +66,19 @@ public class CustomerEmployeeSteps {
 
     }
 
+    @Тогда("перезаполняет сведения о мероприятии")
+    public void refillInfoAboutEvent(Map<String,String> map) {
+        InformationAboutEventPage informationAboutEventPage=new InformationAboutEventPage();
+        Opty opty=(Opty)Context.getSavedObject("Заявка");
+
+
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            informationAboutEventPage.chooseTitleByCategory(entry.getKey(),entry.getValue());
+        }
+        Context.saveObject("Информация о мероприятии",map);
+
+    }
+
     @Когда("заполняет сведения о проверяемой организации")
     public void fillInfoAboutOrganization(Map<String,String> map) {
         checkWidgetExist("Шаги создания заявки");
@@ -132,9 +145,9 @@ public class CustomerEmployeeSteps {
         Opty opty=(Opty) Context.getSavedObject("Заявка");
         new OptysPage().chooseOpty(opty.getNumber());
         new InfoAboutOptyPage().checkAllWidgets();
-        new InfoAboutOptyPage().checkAllOptyData((Map<String, String>) Context.getSavedObject("Информация о мероприятии"),
+    /*  new InfoAboutOptyPage().checkAllOptyData((Map<String, String>) Context.getSavedObject("Информация о мероприятии"),
                 (Organization) Context.getSavedObject("Организация"),
-                (Map<String, String>) Context.getSavedObject("Сведения об объекте проверки"));
+                (Map<String, String>) Context.getSavedObject("Сведения об объекте проверки")); */
         checkButtonEnabled("Отправить на согласование");
     }
 
