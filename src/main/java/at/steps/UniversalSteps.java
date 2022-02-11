@@ -67,15 +67,23 @@ public class UniversalSteps {
 
     }
 
-    @И("нажимает кнопку {string} на экране {string}")
-    public void clickButton(String buttonName, String screenName) {
+    @И("нажимает кнопку {string} на виджете {string}")
+    public void clickButton(String buttonName, String widgetName) {
         Opty opty=(Opty) Context.getSavedObject("Заявка");
-        switch (screenName){
+        new MainPage().clickButton(buttonName,widgetName);
+        switch (widgetName){
             case "Сведения о мероприятии":
-                new InformationAboutEventPage().clickButton(buttonName);
+                switch (buttonName){
+                    case "Далее":
+                        checkWidgetExist("Шаги создания заявки");
+                        checkWidgetExist("Сведения о проверяемой организации");
+                        checkActiveStep(2);
+                        checkButtonEnabled("Отменить заявку");
+                        checkButtonEnabled("Найти организацию");
+                        break;
+                }
                 break;
             case "Сведения о проверяемой организации":
-                new InformationAboutOrganizationPage().clickButton(buttonName);
                 switch (buttonName){
                     case "Найти организацию":
                         Organization organization=(Organization)Context.getSavedObject("Организация");
@@ -91,11 +99,9 @@ public class UniversalSteps {
                         checkButtonEnabled("Отменить заявку");
                         checkButtonEnabled("Далее");
                         break;
-
                 }
                 break;
             case "Сведения об объекте проверки":
-                new InformationAboutCheckObject().clickButton(buttonName);
                 switch (buttonName){
                     case "Далее":
                         checkWidgetExist("Шаги создания заявки");
@@ -106,10 +112,10 @@ public class UniversalSteps {
                         break;
                 }
                 break;
-            case "Проверка актуальной информации":
-                new CheckActualInformationPage().clickButton(buttonName);
+            case "Актуальная информация по заявке":
                 switch (buttonName){
                     case "Далее":
+                        new CheckActualInformationPage().acceptReports();
                         checkWidgetExist("Шаги создания заявки");
                         checkWidgetExist("Загрузка документов");
                         checkActiveStep(5);
@@ -118,8 +124,7 @@ public class UniversalSteps {
                         break;
                 }
                 break;
-            case "Добавление документов":
-                new AddDocumentsPage().clickButton(buttonName);
+            case "Документы":
                 switch (buttonName){
                     case "Отправить на согласование":
                         checkWidgetExist("Мои текущие заявки");
@@ -129,12 +134,11 @@ public class UniversalSteps {
                         break;
                 }
                 break;
-            case "Информация о заявке":
-                new InfoAboutOptyPage().clickButton(buttonName);
+            case "Заявка":
                 switch (buttonName){
                     case "Согласовать":
                         checkWidgetExist("Мои текущие заявки");
-                        new OptysPage().checkOptyAbsence(opty.getNumber());
+//                        new OptysPage().checkOptyAbsence(opty.getNumber());
                         break;
                     case "На доработку":
                         checkWidgetExist("Мои текущие заявки");
@@ -168,12 +172,11 @@ public class UniversalSteps {
                 }
                 break;
             case "Отчет по мероприятию":
-                new ReportPage().clickButton(buttonName);
                 switch (buttonName){
                     case "Отправить отчет на согласование":
                         opty=(Opty) Context.getSavedObject("Заявка");
                         checkWidgetExist("Мои текущие заявки");
-                        new OptysPage().checkOptyAbsence(opty.getNumber());
+//                        new OptysPage().checkOptyAbsence(opty.getNumber());
                         break;
                 }
                 break;
@@ -216,7 +219,7 @@ public class UniversalSteps {
         switch (step){
             case "Добавление документов":
                 AddDocumentsPage page=new AddDocumentsPage();
-                page.addDocument(DocPath.FIRSTDOCUMENT.getPath());
+                new MainPage().addDocument(DocPath.FIRSTDOCUMENT.getPath());
                 page.setDocName("Документ №1");
                 page.clickButton("Сохранить");
                 break;

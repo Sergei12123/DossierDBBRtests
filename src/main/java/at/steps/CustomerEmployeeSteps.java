@@ -1,7 +1,6 @@
 package at.steps;
 
 import at.database.dao.ApplicationDAO;
-import at.helpers.Environment;
 import at.helpers.HookHelper;
 import at.models.Opty;
 import at.models.Organization;
@@ -9,7 +8,7 @@ import at.parser.Context;
 import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
-import org.junit.Assert;
+
 import pages.CustomerEmployeePages.*;
 import pages.InfoAboutOptyPage;
 import pages.MainPage;
@@ -17,6 +16,7 @@ import pages.OptysPage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -55,40 +55,29 @@ public class CustomerEmployeeSteps {
     @Тогда("заполняет сведения о мероприятии")
     public void fillInfoAboutEvent(Map<String,String> map) {
         InformationAboutEventPage informationAboutEventPage=new InformationAboutEventPage();
-        Opty opty=(Opty)Context.getSavedObject("Заявка");
-
-
         for (Map.Entry<String, String> entry : map.entrySet()) {
             informationAboutEventPage.chooseTitleByCategory(entry.getKey(),entry.getValue());
         }
-        Context.saveObject("Информация о мероприятии",map);
+        Context.saveObject("Информация о мероприятии",new HashMap<>(map));
         checkTextInTextField("Срок исполнения","10");
-
     }
 
     @Тогда("перезаполняет сведения о мероприятии")
     public void refillInfoAboutEvent(Map<String,String> map) {
-        InformationAboutEventPage informationAboutEventPage=new InformationAboutEventPage();
-        Opty opty=(Opty)Context.getSavedObject("Заявка");
-
-
-        for (Map.Entry<String, String> entry : map.entrySet()) {
-            informationAboutEventPage.chooseTitleByCategory(entry.getKey(),entry.getValue());
+        HashMap<String, String> eventInfo= (HashMap<String, String>) Context.getSavedObject("Информация о мероприятии");
+        for(HashMap.Entry<String, String> entry : map.entrySet()){
+            new InformationAboutEventPage().chooseTitleByCategory(entry.getKey(),entry.getValue());
+            String key=entry.getKey();
+            if(eventInfo.containsKey(key)){
+                eventInfo.put(key,map.get(key));
+            }
         }
-        Context.saveObject("Информация о мероприятии",map);
-
     }
 
     @Когда("заполняет сведения о проверяемой организации")
     public void fillInfoAboutOrganization(Map<String,String> map) {
-        checkWidgetExist("Шаги создания заявки");
-        checkWidgetExist("Сведения о проверяемой организации");
-        checkActiveStep(2);
-        checkButtonEnabled("Отменить заявку");
-        checkButtonEnabled("Найти организацию");
         Organization orgNew=new Organization();
         List<Organization> organizationList = new ArrayList<>(Arrays.asList(HookHelper.getEnvironment().organizations));
-
         for (Map.Entry<String, String> entry : map.entrySet()) {
             switch (entry.getKey()){
                 case "Регистрационный номер":
@@ -118,7 +107,20 @@ public class CustomerEmployeeSteps {
         for (Map.Entry<String, String> entry : map.entrySet()) {
             new InformationAboutCheckObject().setTitleByCategory(entry.getKey(),entry.getValue());
         }
-        Context.saveObject("Сведения об объекте проверки",map);
+        Context.saveObject("Сведения об объекте проверки",new HashMap<>(map));
+    }
+
+    @Тогда("перезаполняет сведения об объекте проверки")
+    public void refillInfoAboutCheckObject(Map<String,String> map) {
+
+        HashMap<String, String> eventInfo= (HashMap<String, String>) Context.getSavedObject("Сведения об объекте проверки");
+        for(HashMap.Entry<String, String> entry : map.entrySet()){
+            new InformationAboutCheckObject().setTitleByCategory(entry.getKey(),entry.getValue());
+            String key=entry.getKey();
+            if(eventInfo.containsKey(key)){
+                eventInfo.put(key,map.get(key));
+            }
+        }
     }
 
     @И("выбирает пункт меню {string}")

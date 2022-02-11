@@ -9,20 +9,15 @@ import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class CheckActualInformationPage {
-    @Step("Нажать кнопку {0}")
-    public void clickButton(String buttonName){
-        $$(byTagName("button")).find(Condition.text(buttonName)).shouldBe(Condition.exist).click();
-        switch (buttonName){
-            case "Далее":
-                WaitUtil.sleep(1000);
-                if(!$(byAttribute("role","document")).find(byText("Ошибка")).exists()) {
-                    if ($(byAttribute("role", "document")).exists())
-                        clickOnDialogConformData("Подтверждаю");
-                }else{
-                    $(byAttribute("role","document")).find(byText("Подробности")).shouldBe(Condition.exist).click();
-                    Assert.fail("Произошла системная ошибка:\n"+$(byAttribute("role","document")).find(byTagName("textarea")).getText());
-                }
-                break;
+    @Step("Подтвердить, что просмотрены все отчеты")
+    public void acceptReports(){
+        WaitUtil.sleep(1000);
+        if(!$(byAttribute("role","document")).find(byText("Ошибка")).exists()) {
+            if ($(byAttribute("role", "document")).exists())
+                clickOnDialogConformData("Подтверждаю");
+        }else{
+            $(byAttribute("role","document")).find(byText("Подробности")).shouldBe(Condition.exist).click();
+            Assert.fail("Произошла системная ошибка:\n"+$(byAttribute("role","document")).find(byTagName("textarea")).getText());
         }
     }
 
