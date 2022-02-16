@@ -77,4 +77,11 @@ public class DbbrEmployeeSteps {
         }
         Context.saveObject("Отчет по мероприятию", map);
     }
+
+    @Тогда("заполняет результат обработки")
+    public void fillProccessingResult(Map<String, String> map) {
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            new InfoAboutOptyPage().setTitleByCategory(entry.getKey(), entry.getValue());
+        }
+    }
 }

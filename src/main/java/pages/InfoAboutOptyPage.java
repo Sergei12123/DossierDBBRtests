@@ -86,4 +86,16 @@ public class InfoAboutOptyPage {
         }
         Assert.assertEquals(key+" не совпал c ожидаемым",value,text);
     }
+
+    @Step("Заполняет данные категории '{0}'")
+    public void setTitleByCategory(String key, String value) {
+        switch (key){
+            case "Обоснование отклонения":
+            case "Обоснование уточнения":
+                $(byText(key)).parent().parent().$(byTagName("textarea")).setValue(value);
+                break;
+            default:
+                $(byText(key)).parent().parent().$(byTagName("input")).setValue(value);
+        }
+    }
 }

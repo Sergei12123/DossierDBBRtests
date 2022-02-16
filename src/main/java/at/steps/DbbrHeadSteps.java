@@ -36,17 +36,20 @@ public class DbbrHeadSteps {
     }
 
     @И("выбирает заявку в работе")
-    public void chooseInWorkOpty() {
+    public void chooseRejectedOpty() {
         new MainPage().goToTab("Заявки");
         checkWidgetExist("Мои текущие заявки");
         Opty opty=(Opty) Context.getSavedObject("Заявка");
         new OptysPage().chooseOpty(opty.getNumber());
+        //TODO: добавить проверку виджета "Результаты обработки заявки"
         new InfoAboutOptyPage().checkAllWidgets();
+
+        //TODO: добавить проверку текста на виджете "Результаты обработки заявки" (?)
         new InfoAboutOptyPage().checkAllOptyData((Map<String, String>) Context.getSavedObject("Информация о мероприятии"),
                 (Organization) Context.getSavedObject("Организация"),
                 (Map<String, String>) Context.getSavedObject("Сведения об объекте проверки"));
         checkButtonEnabled("Согласовать");
         checkButtonEnabled("Отклонить");
-
+        checkButtonEnabled("Направить на изменение срока");
     }
 }
