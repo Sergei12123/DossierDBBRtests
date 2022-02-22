@@ -127,8 +127,6 @@ public class UniversalSteps {
             case "Документы":
                 switch (buttonName){
                     case "Отправить на согласование":
-                        checkWidgetExist("Мои текущие заявки");
-                        break;
                     case "Отменить заявку":
                         checkWidgetExist("Мои текущие заявки");
                         break;
