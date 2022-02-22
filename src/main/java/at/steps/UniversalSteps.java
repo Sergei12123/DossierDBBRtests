@@ -158,11 +158,11 @@ public class UniversalSteps {
                     case "В очередь":
                         new InfoAboutOptyPage().checkAllWidgets();
                         checkButtonEnabled("В работу");
-                        new InfoAboutOptyPage().checkValueInKey("Статус","В очереди");
+                        //new InfoAboutOptyPage().checkValueInKey("Статус","В очереди");
                         break;
                     case "В работу":
                         new InfoAboutOptyPage().checkAllWidgets();
-                        new InfoAboutOptyPage().checkValueInKey("Статус","В работе");
+                        //new InfoAboutOptyPage().checkValueInKey("Статус","В работе");
                         break;
                     case "Заявка исполнена":
                         checkWidgetExist("Заявка");
@@ -173,11 +173,15 @@ public class UniversalSteps {
                 break;
             case "Отчет по мероприятию":
                 switch (buttonName){
+                    case "Сохранить":
+                        checkButtonEnabled("Отправить отчет на согласование");
+                        break;
                     case "Отправить отчет на согласование":
                         opty=(Opty) Context.getSavedObject("Заявка");
                         checkWidgetExist("Мои текущие заявки");
 //                        new OptysPage().checkOptyAbsence(opty.getNumber());
                         break;
+
                 }
                 break;
         }

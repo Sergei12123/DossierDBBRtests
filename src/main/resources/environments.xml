@@ -2,12 +2,12 @@
 <environments>
     <environment name="test-DossierDBBR">
         <endpoints>
-            <endpoint alias="loginPage">http://192.168.9.14:8080/ui/#/ </endpoint>
+            <endpoint alias="loginPage">http://172.24.5.31:8080/ui/#/ </endpoint>
         </endpoints>
         <databases>
             <database alias="dbbr_db">
                 <driver>oracle</driver>
-                <host>192.168.9.14</host>
+                <host>172.24.5.31</host>
                 <port>1523</port>
                 <service>xepdb1</service>
                 <login>RO</login>

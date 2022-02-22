@@ -110,7 +110,7 @@ public class MainPage {
                 });
                 break;
             }catch (Exception|Error e) {
-                WaitUtil.sleep(500);
+                WaitUtil.sleep(10000);
             }
         }
 

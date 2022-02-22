@@ -65,7 +65,7 @@ public class InfoAboutOptyPage {
 
     private void checkMap(String widget,Map<String,String> map){
         for (Map.Entry<String, String> entry : map.entrySet()) {
-            String text=$(byText(widget)).parent().find(byText(entry.getKey())).parent().parent().lastChild().getText();
+            String text=$(byText(widget)).parent().parent().find(byText(entry.getKey())).parent().parent().lastChild().getText();
             Assert.assertEquals("Значение поля не совпало с ожидаемым",entry.getValue(),text);
         }
     }
@@ -78,11 +78,11 @@ public class InfoAboutOptyPage {
 
     @Step("Проверить что в пункте {0} указано значение {1}")
     public void checkValueInKey(String key,String value) {
-        String text=$(byText("Информация о заявке")).parent().find(byText("Статус")).parent().parent().lastChild().getText();
+        String text=$(byText("Информация о заявке")).parent().parent().find(byText("Статус")).parent().parent().lastChild().getText();
         if(!text.equals(value)){
             WaitUtil.sleep(1000);
             refresh();
-            text=$(byText("Информация о заявке")).parent().find(byText("Статус")).parent().parent().lastChild().getText();
+            text=$(byText("Информация о заявке")).parent().parent().find(byText("Статус")).parent().parent().lastChild().getText();
         }
         Assert.assertEquals(key+" не совпал c ожидаемым",value,text);
     }
