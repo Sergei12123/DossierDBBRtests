@@ -15,14 +15,20 @@ public class Organization {
     private String ogrn;
     @SerializedName("Название организации")
     private String name;
+    @SerializedName("ФИО руководителя")
+    private String headfio;
+    @SerializedName("Должность руководителя")
+    private String headtitle;
     private String regionCD;
     private String actTypeCD;
 
-    public Organization(String regNum, String inn, String ogrn, String name, String regionCD, String actTypeCD) {
+    public Organization(String regNum, String inn, String ogrn, String name, String headfio, String headtitle, String regionCD, String actTypeCD) {
         this.regNum = regNum;
         this.inn = inn;
         this.ogrn = ogrn;
         this.name = name;
+        this.headfio = headfio;
+        this.headfio = headtitle;
         this.regionCD = regionCD;
         this.actTypeCD = actTypeCD;
     }

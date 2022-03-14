@@ -1,6 +1,7 @@
 package at.steps;
 
 import at.database.dao.ApplicationDAO;
+import at.exceptions.WaitUtil;
 import at.helpers.HookHelper;
 import at.models.Opty;
 import at.models.Organization;
@@ -95,6 +96,13 @@ public class CustomerEmployeeSteps {
                 case "ОГРН":
                     orgNew.setOgrn(entry.getValue());
                     organizationList=organizationList.stream().filter(a->a.getOgrn().equals(entry.getValue())).collect(Collectors.toList());
+                    WaitUtil.sleep(1000);
+                    break;
+                case "ФИО руководителя":
+                    orgNew.setHeadfio(entry.getValue());
+                    break;
+                case "Должность руководителя":
+                    orgNew.setHeadtitle(entry.getValue());
                     break;
             }
             Context.saveObject("Организация",organizationList.get(0));

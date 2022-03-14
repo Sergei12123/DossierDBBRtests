@@ -23,6 +23,8 @@
                 <ogrn>1027700186062</ogrn>
                 <actTypeCD>NFO</actTypeCD>
                 <regionCD>77</regionCD>
+                <headfio />
+                <headtitle />
             </organization>
             <organization alias="2209">
                 <name>ПАО Банк «ФК Открытие»</name>
@@ -30,6 +32,8 @@
                 <ogrn>1027739019208</ogrn>
                 <actTypeCD>KO</actTypeCD>
                 <regionCD>77</regionCD>
+                <headfio />
+                <headtitle />
             </organization>
             <organization alias="-1">
                 <name>МФК «БЫСТРОДЕНЬГИ»</name>
@@ -37,6 +41,8 @@
                 <ogrn>1087325005899</ogrn>
                 <actTypeCD>NFO</actTypeCD>
                 <regionCD>77</regionCD>
+                <headfio />
+                <headtitle />
             </organization>
             <organization alias="1978">
                 <name>ПАО «МОСКОВСКИЙ КРЕДИТНЫЙ БАНК»</name>
@@ -44,6 +50,8 @@
                 <ogrn>1027739555282</ogrn>
                 <actTypeCD>SZKO</actTypeCD>
                 <regionCD>77</regionCD>
+                <headfio />
+                <headtitle />
             </organization>
             <organization alias="3202">
                 <name>АО НОКССБАНК</name>
@@ -51,6 +59,8 @@
                 <ogrn>1023400000018</ogrn>
                 <actTypeCD>KO</actTypeCD>
                 <regionCD>34</regionCD>
+                <headfio />
+                <headtitle />
             </organization>
         </organizations>
 

@@ -50,6 +50,8 @@ public class Environment {
                         this.getTagValue(org, "inn"),
                         this.getTagValue(org, "ogrn"),
                         this.getTagValue(org, "name"),
+                        this.getTagValue(org, "headfio"),
+                        this.getTagValue(org, "headtitle"),
                         this.getTagValue(org, "regionCD"),
                         this.getTagValue(org, "actTypeCD"));
             }
