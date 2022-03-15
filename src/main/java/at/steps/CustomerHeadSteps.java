@@ -1,12 +1,11 @@
 package at.steps;
 
+import at.models.Complaint;
 import at.models.Opty;
 import at.models.Organization;
 import at.parser.Context;
 import io.cucumber.java.ru.И;
-import pages.InfoAboutOptyPage;
-import pages.MainPage;
-import pages.OptysPage;
+import pages.*;
 
 import java.util.Map;
 
@@ -25,6 +24,17 @@ public class CustomerHeadSteps {
         new InfoAboutOptyPage().checkAllOptyData((Map<String, String>) Context.getSavedObject("Информация о мероприятии"),
                 (Organization) Context.getSavedObject("Организация"),
                 (Map<String, String>) Context.getSavedObject("Сведения об объекте проверки"));
+
+    }
+
+    @И("выбирает рекламацию")
+    public void chooseCreatedComp(){
+        new MainPage().goToTab("Рекламации");
+        Complaint complaint=(Complaint) Context.getSavedObject("Рекламация");
+        new ComplaintsPage().chooseComp(complaint.getNumber());
+//        checkButtonEnabled("На доработку");
+        new InfoComplaintPage().checkAllWidgets();
+        new InfoComplaintPage().checkAllCompData((Map<String, String>) Context.getSavedObject("Информация о рекламации"));
 
     }
 }

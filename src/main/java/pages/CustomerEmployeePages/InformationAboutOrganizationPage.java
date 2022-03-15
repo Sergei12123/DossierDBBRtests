@@ -3,6 +3,9 @@ package pages.CustomerEmployeePages;
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import org.junit.Assert;
+import org.openqa.selenium.Keys;
+
+import java.util.Objects;
 
 import static com.codeborne.selenide.Selectors.byTagName;
 import static com.codeborne.selenide.Selectors.byText;
@@ -21,7 +24,14 @@ public class InformationAboutOrganizationPage {
 
     @Step("Заполняет данные категории '{0}'")
     public void setTitleByCategory(String key, String value) {
-
-        $(byText(key)).parent().parent().$(byTagName("input")).setValue(value);
+        if (Objects.equals(value, "")) {
+            int count = Objects.requireNonNull($(byText(key)).parent().parent().$(byTagName("input")).getValue()).length();
+            while (!Objects.equals($(byText(key)).parent().parent().$(byTagName("input")).getValue(), "") && count>0) {
+                $(byText(key)).parent().parent().$(byTagName("input")).sendKeys(Keys.BACK_SPACE);
+                count--;
+            }
+        }else{
+            $(byText(key)).parent().parent().$(byTagName("input")).setValue(value);
+        }
     }
 }

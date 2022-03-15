@@ -1,5 +1,6 @@
 package at.steps;
 
+import at.models.Complaint;
 import at.models.Opty;
 import at.models.Organization;
 import at.parser.Context;
@@ -32,7 +33,12 @@ public class DbbrHeadSteps {
     public void chooseExecutor(String executor) {
         new InfoAboutOptyPage().chooseExecutor(executor);
         Opty opty=(Opty) Context.getSavedObject("Заявка");
+    }
 
+    @И("выбирает исполнителя рекламации {string}")
+    public void chooseExecutorCompl(String executor) {
+        new InfoAboutOptyPage().chooseExecutor(executor);
+        Complaint comp=(Complaint) Context.getSavedObject("Рекламация");
     }
 
     @И("выбирает заявку в работе")

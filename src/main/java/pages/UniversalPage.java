@@ -6,6 +6,9 @@ import com.codeborne.selenide.Configuration;
 import io.qameta.allure.Step;
 import lombok.extern.java.Log;
 import org.junit.Assert;
+import org.openqa.selenium.Keys;
+
+import java.util.Objects;
 
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.$;

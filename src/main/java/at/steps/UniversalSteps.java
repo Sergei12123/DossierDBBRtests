@@ -6,6 +6,7 @@ import at.enums.Roles;
 import at.exceptions.*;
 import at.helpers.Environment;
 import at.helpers.HookHelper;
+import at.models.Complaint;
 import at.models.Opty;
 import at.models.Organization;
 import at.models.User;
@@ -179,7 +180,6 @@ public class UniversalSteps {
                         checkWidgetExist("Мои текущие заявки");
 //                        new OptysPage().checkOptyAbsence(opty.getNumber());
                         break;
-
                 }
                 break;
         }
@@ -209,6 +209,32 @@ public class UniversalSteps {
         }
         Assert.assertEquals(statusDB,new ApplicationDAO().getOptyStatus(opty.getNumber()));
         opty.setStatus(statusDB);
+    }
+
+    @И("статус рекламации {string}")
+    public void checkStatusCompl(String status) {
+        String statusDB="";
+        Complaint comp=(Complaint) Context.getSavedObject("Рекламация");
+        sleep(3000);
+        switch (status){
+            case "Черновик":
+                statusDB="DRAFT";
+                break;
+            case "Сформирована":
+                statusDB="FORMED";
+                break;
+            case "Назначена":
+                statusDB="ASSIGNED";
+                break;
+            case "В работе":
+                statusDB="IN_WORK";
+                break;
+            case "Исполнена":
+                statusDB="COMPLETED";
+                break;
+        }
+        Assert.assertEquals(statusDB,new ApplicationDAO().getOptyStatus(comp.getNumber()));
+        comp.setStatus(statusDB);
     }
 
     @И("выходит из приложения")

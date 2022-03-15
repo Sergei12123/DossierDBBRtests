@@ -3,6 +3,7 @@ package at.steps;
 import at.database.dao.ApplicationDAO;
 import at.exceptions.WaitUtil;
 import at.helpers.HookHelper;
+import at.models.Complaint;
 import at.models.Opty;
 import at.models.Organization;
 import at.parser.Context;
@@ -10,6 +11,7 @@ import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
 
+import pages.InfoComplaintPage;
 import pages.CustomerEmployeePages.*;
 import pages.InfoAboutOptyPage;
 import pages.MainPage;
@@ -51,6 +53,16 @@ public class CustomerEmployeeSteps {
         String optyNum=new ApplicationDAO().getOptyNumber();
         opty.setNumber(optyNum);
         Context.saveObject("Заявка",opty);
+    }
+
+    @Тогда("создаёт рекламацию")
+    public void createComp(){
+        new MainPage().clickButton("Создать рекламацию","Заявка");
+        Complaint comp=new Complaint();
+        sleep(2000);
+        String compNum=new ApplicationDAO().getOptyNumber();
+        comp.setNumber(compNum);
+        Context.saveObject("Рекламация",comp);
     }
 
     @Тогда("заполняет сведения о мероприятии")
@@ -168,5 +180,18 @@ public class CustomerEmployeeSteps {
         page.setTitleByCategory("Наименование организации","");
         page.setTitleByCategory("ИНН","");
         page.setTitleByCategory("ОГРН","");
+    }
+
+    @И("вносит данные о мероприятии рекламации")
+    public void fillInfoAboutComplaint(Map<String,String> map) {
+        InfoComplaintPage informationInfoComplaintPage =new InfoComplaintPage();
+        Map<String,String> map2= new HashMap<>();;
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            informationInfoComplaintPage.setTitleByCategory(entry.getKey(),entry.getValue());
+            if (!entry.getKey().equals("Утвержденная дата исполнения"))
+                map2.put(entry.getKey(), entry.getValue());
+        }
+        Context.saveObject("Информация о рекламации",map2);
+        checkTextInTextField("Срок исполнения","5");
     }
 }
