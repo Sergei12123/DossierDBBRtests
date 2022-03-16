@@ -39,9 +39,9 @@ public class UniversalSteps {
             }
         }
         Assert.assertNotNull("Пользователь не найден",user);
-        Context.saveObject("Пользователь",user);
         open(environment.urls.get("loginPage"));
         new DBBRLoginPage().login(user.getLogin(),user.getPassword());
+        Context.saveObject("Пользователь",user);
     }
 
     @И("^выбирает роль (Сотрудник подразделения-инициатора|Руководитель подразделения-инициатора|Руководитель ДББР|Сотрудник ДББР)")
