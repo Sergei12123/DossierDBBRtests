@@ -1,6 +1,7 @@
 package at.steps;
 
 import at.enums.Roles;
+import at.models.Complaint;
 import at.models.Opty;
 import at.models.Organization;
 import at.models.User;
@@ -8,11 +9,8 @@ import at.parser.Context;
 import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
+import pages.*;
 import pages.CustomerEmployeePages.InformationAboutOrganizationPage;
-import pages.InfoAboutOptyPage;
-import pages.MainPage;
-import pages.OptysPage;
-import pages.ReportPage;
 
 import java.util.Map;
 
@@ -32,6 +30,29 @@ public class DbbrEmployeeSteps {
                 (Map<String, String>) Context.getSavedObject("Сведения об объекте проверки"));
         checkButtonEnabled("Взять в обработку");
 
+    }
+
+    @И("выбирает назначенную рекламацию")
+    public void selectAppointedComp(){
+        new MainPage().goToTab("Рекламации");
+        Complaint complaint=(Complaint) Context.getSavedObject("Рекламация");
+        new ComplaintsPage().chooseComp(complaint.getNumber());
+        checkButtonEnabled("Уточнить отчет");
+        checkButtonEnabled("Новая заявка");
+        new InfoComplaintPage().checkAllWidgets();
+        new InfoComplaintPage().checkAllCompData((Map<String, String>) Context.getSavedObject("Информация о рекламации"));
+    }
+
+    @И("выбирает рекламацию на доработку в отклонении")
+    public void selectRevisitedComp(){
+        new MainPage().goToTab("Рекламации");
+        Complaint complaint=(Complaint) Context.getSavedObject("Рекламация");
+        new ComplaintsPage().chooseComp(complaint.getNumber());
+        checkButtonEnabled("Отклонить рекламацию");
+        checkButtonEnabled("Уточнить отчет");
+        checkButtonEnabled("Новая заявка");
+        new InfoComplaintPage().checkAllWidgets();
+        new InfoComplaintPage().checkAllCompData((Map<String, String>) Context.getSavedObject("Информация о рекламации"));
     }
 
     @И("переходит во вкладку {string}")

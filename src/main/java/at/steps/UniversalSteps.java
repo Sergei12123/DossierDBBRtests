@@ -182,6 +182,13 @@ public class UniversalSteps {
                         break;
                 }
                 break;
+            case "Результаты обработки рекламации":
+                switch (buttonName){
+                    case "Сохранить":
+                        checkButtonEnabled("Отклонить рекламацию");
+                        break;
+                }
+                break;
         }
     }
 

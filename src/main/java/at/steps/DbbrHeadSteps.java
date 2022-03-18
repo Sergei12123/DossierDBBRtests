@@ -6,9 +6,7 @@ import at.models.Organization;
 import at.parser.Context;
 import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Когда;
-import pages.InfoAboutOptyPage;
-import pages.MainPage;
-import pages.OptysPage;
+import pages.*;
 
 import java.util.Map;
 
@@ -27,6 +25,27 @@ public class DbbrHeadSteps {
         new InfoAboutOptyPage().checkAllOptyData((Map<String, String>) Context.getSavedObject("Информация о мероприятии"),
                 (Organization) Context.getSavedObject("Организация"),
                 (Map<String, String>) Context.getSavedObject("Сведения об объекте проверки"));
+    }
+
+    @И("выбирает сформированную рекламацию")
+    public void selectComp(){
+        new MainPage().goToTab("Рекламации");
+        Complaint complaint=(Complaint) Context.getSavedObject("Рекламация");
+        new ComplaintsPage().chooseComp(complaint.getNumber());
+        checkButtonEnabled("Назначить");
+        new InfoComplaintPage().checkAllWidgets();
+        new InfoComplaintPage().checkAllCompData((Map<String, String>) Context.getSavedObject("Информация о рекламации"));
+    }
+
+    @И("выбирает отклоняемую рекламацию")
+    public void selectRejectedComp(){
+        new MainPage().goToTab("Рекламации");
+        Complaint complaint=(Complaint) Context.getSavedObject("Рекламация");
+        new ComplaintsPage().chooseComp(complaint.getNumber());
+        checkButtonEnabled("Согласовать");
+        checkButtonEnabled("Отклонить");
+        new InfoComplaintPage().checkAllWidgets();
+        new InfoComplaintPage().checkAllCompData((Map<String, String>) Context.getSavedObject("Информация о рекламации"));
     }
 
     @И("выбирает исполнителя {string}")

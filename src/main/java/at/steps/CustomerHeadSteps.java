@@ -27,12 +27,12 @@ public class CustomerHeadSteps {
 
     }
 
-    @И("выбирает рекламацию")
+    @И("выбирает созданную рекламацию")
     public void chooseCreatedComp(){
         new MainPage().goToTab("Рекламации");
         Complaint complaint=(Complaint) Context.getSavedObject("Рекламация");
         new ComplaintsPage().chooseComp(complaint.getNumber());
-//        checkButtonEnabled("На доработку");
+        checkButtonEnabled("Согласовать создание");
         new InfoComplaintPage().checkAllWidgets();
         new InfoComplaintPage().checkAllCompData((Map<String, String>) Context.getSavedObject("Информация о рекламации"));
 
