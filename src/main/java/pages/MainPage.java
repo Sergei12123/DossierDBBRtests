@@ -13,7 +13,6 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.junit.Assert;
-import org.openqa.selenium.StaleElementReferenceException;
 import io.qameta.allure.Step;
 
 import at.exceptions.WaitUtil;
@@ -69,7 +68,7 @@ public class MainPage {
               final ElementsCollection widget = $$(byText(widgetName));
               final Optional<SelenideElement> first = widget.stream()
                   .filter(el -> Objects.requireNonNull(el.getAttribute("class")).contains("widget")).findFirst();
-              first.ifPresent(el -> el.parent().findAll(byTagName("button")).filter(Condition.text(buttonName)).first().shouldBe(Condition.exist)
+              first.ifPresent(el -> el.parent().parent().findAll(byTagName("button")).filter(Condition.text(buttonName)).first().shouldBe(Condition.exist)
                   .click());
           }else{
               if(count==1)

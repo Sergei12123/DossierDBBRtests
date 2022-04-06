@@ -28,8 +28,7 @@ public class DbbrEmployeeSteps {
         new InfoAboutOptyPage().checkAllOptyData((Map<String, String>) Context.getSavedObject("Информация о мероприятии"),
                 (Organization) Context.getSavedObject("Организация"),
                 (Map<String, String>) Context.getSavedObject("Сведения об объекте проверки"));
-        checkButtonEnabled("Взять в обработку");
-
+//        checkButtonEnabled("Взять в обработку");
     }
 
     @И("выбирает назначенную рекламацию")
@@ -103,6 +102,7 @@ public class DbbrEmployeeSteps {
     public void fillProccessingResult(Map<String, String> map) {
         for (Map.Entry<String, String> entry : map.entrySet()) {
             new InfoAboutOptyPage().setTitleByCategory(entry.getKey(), entry.getValue());
+            Context.saveObject("Результат обработки", entry.getKey());
         }
     }
 }

@@ -30,7 +30,7 @@ import static pages.UniversalPage.*;
 public class CustomerEmployeeSteps {
     @Когда("^создает заявку с типом (Заявка на визуальный контроль|Заявка на проверку персональных данных)")
     public void createOpty(String type){
-        new MainPage().goToTab("Создание заявки");
+        new MainPage().goToTab("Заявки");
         checkButtonEnabled("Создать заявку на визуальный контроль");
         checkButtonEnabled("Создать заявку на проверку персональных данных");
         new CreateApplicationPage().chooseOptyType(type);
@@ -124,15 +124,20 @@ public class CustomerEmployeeSteps {
 
     @Тогда("заполняет сведения об объекте проверки")
     public void fillInfoAboutCheckObject(Map<String,String> map) {
+        InformationAboutCheckObject informationAboutCheckObject =new InformationAboutCheckObject();
+        Map<String,String> map2= new HashMap<>();;
         for (Map.Entry<String, String> entry : map.entrySet()) {
-            new InformationAboutCheckObject().setTitleByCategory(entry.getKey(),entry.getValue());
+            informationAboutCheckObject.setTitleByCategory(entry.getKey(),entry.getValue());
+            if (entry.getKey().equals("ИНН физического лица"))
+                map2.put("ИНН физ. лица", entry.getValue());
+            else
+                map2.put(entry.getKey(), entry.getValue());
         }
-        Context.saveObject("Сведения об объекте проверки",new HashMap<>(map));
+        Context.saveObject("Сведения об объекте проверки",map2);
     }
 
-    @Тогда("перезаполняет сведения об объекте проверки")
+    @И("перезаполняет сведения об объекте проверки")
     public void refillInfoAboutCheckObject(Map<String,String> map) {
-
         HashMap<String, String> eventInfo= (HashMap<String, String>) Context.getSavedObject("Сведения об объекте проверки");
         for(HashMap.Entry<String, String> entry : map.entrySet()){
             new InformationAboutCheckObject().setTitleByCategory(entry.getKey(),entry.getValue());

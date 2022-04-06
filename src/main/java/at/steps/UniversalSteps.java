@@ -18,13 +18,11 @@ import org.junit.Assert;
 import pages.*;
 import pages.CustomerEmployeePages.*;
 
-import java.util.Map;
 import java.util.Objects;
 
 import static at.exceptions.WaitUtil.sleep;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selectors.*;
+import static com.codeborne.selenide.Selenide.*;
 import static pages.UniversalPage.*;
 
 public class UniversalSteps {
@@ -82,6 +80,10 @@ public class UniversalSteps {
                         checkButtonEnabled("Отменить заявку");
                         checkButtonEnabled("Найти организацию");
                         break;
+                    case "Сохранить":
+                        checkButtonEnabled("Отправить на согласование");
+                        WaitUtil.sleep(2000);
+                        break;
                 }
                 break;
             case "Сведения о проверяемой организации":
@@ -110,6 +112,10 @@ public class UniversalSteps {
                         checkActiveStep(4);
                         checkButtonEnabled("Отменить заявку");
                         checkButtonEnabled("Далее");
+                        break;
+                    case "Сохранить":
+                        checkButtonEnabled("Отправить на согласование");
+                        WaitUtil.sleep(2000);
                         break;
                 }
                 break;
@@ -176,7 +182,6 @@ public class UniversalSteps {
                         checkButtonEnabled("Отправить отчет на согласование");
                         break;
                     case "Отправить отчет на согласование":
-                        opty=(Opty) Context.getSavedObject("Заявка");
                         checkWidgetExist("Мои текущие заявки");
 //                        new OptysPage().checkOptyAbsence(opty.getNumber());
                         break;
@@ -186,6 +191,15 @@ public class UniversalSteps {
                 switch (buttonName){
                     case "Сохранить":
                         checkButtonEnabled("Отклонить рекламацию");
+                        break;
+                }
+                break;
+            case "Результаты обработки заявки":
+                switch (buttonName){
+                    case "Сохранить":
+                        if((Context.getSavedObject("Результат обработки")).equals("Обоснование уточнения"))
+                            checkButtonEnabled("На уточнение");
+                        else checkButtonEnabled("Отклонить заявку");
                         break;
                 }
                 break;

@@ -10,7 +10,6 @@ import pages.*;
 import java.util.Map;
 
 import static pages.UniversalPage.checkButtonEnabled;
-import static pages.UniversalPage.checkWidgetExist;
 
 public class CustomerHeadSteps {
     @И("выбирает созданную заявку")
