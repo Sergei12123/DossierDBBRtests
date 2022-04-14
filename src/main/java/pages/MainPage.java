@@ -29,11 +29,11 @@ public class MainPage {
     public void changeRole(String role){
         int count=10;
         do {
-            sleep(1000);
+            sleep(1500);
             $(byAttribute("data-icon", "user")).shouldBe(Condition.exist).hover().click();
-            sleep(1000);
+            sleep(1500);
             $(byAttribute("title", "Роли")).shouldBe(Condition.exist).hover().click();
-            sleep(1000);
+            sleep(1500);
             $(byText(role)).hover().click();
             $(byAttribute("data-icon", "user")).shouldBe(Condition.exist).hover().click();
             count--;
@@ -46,8 +46,8 @@ public class MainPage {
         int count=10;
         $(byAttribute("data-icon","user")).shouldBe(Condition.exist);
         while (count>0 && $(byAttribute("data-icon","user")).exists()){
-            $(byAttribute("data-icon","user")).hover();
-            sleep(1000);
+            $(byAttribute("data-icon","user")).hover().click();
+            sleep(1500);
             if($(byText("Выход")).exists())
                 $(byText("Выход")).click();
             count--;

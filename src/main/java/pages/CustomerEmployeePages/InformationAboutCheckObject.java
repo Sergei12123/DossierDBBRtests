@@ -23,6 +23,7 @@ public class InformationAboutCheckObject {
                 $(byText(key)).parent().parent().$(byTagName("textarea")).setValue(value);
                 break;
             case "Дата рождения":
+            case "Утвержденная дата исполнения":
                 $(byAttribute("placeholder","Выберите дату")).click();
                 $$(byAttribute("placeholder","Выберите дату")).find(Condition.not(Condition.attribute("readonly"))).setValue(value).pressEnter();
                 break;

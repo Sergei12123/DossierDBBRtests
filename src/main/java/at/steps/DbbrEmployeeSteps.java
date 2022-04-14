@@ -105,4 +105,10 @@ public class DbbrEmployeeSteps {
             Context.saveObject("Результат обработки", entry.getKey());
         }
     }
+
+    @И("очищает поля обоснования уточнения")
+    public void cleanAllReasonData() {
+        InfoAboutOptyPage page=new InfoAboutOptyPage();
+        page.setTitleByCategory("Обоснование уточнения","");
+    }
 }

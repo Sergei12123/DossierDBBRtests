@@ -81,8 +81,8 @@ public class UniversalSteps {
                         checkButtonEnabled("Найти организацию");
                         break;
                     case "Сохранить":
-                        checkButtonEnabled("Отправить на согласование");
                         WaitUtil.sleep(2000);
+                        checkButtonEnabled("Отправить на согласование");
                         break;
                 }
                 break;
@@ -94,6 +94,7 @@ public class UniversalSteps {
                         checkTextInTextField("Наименование организации",organization.getName());
                         checkTextInTextField("ИНН",organization.getInn());
                         checkTextInTextField("ОГРН", organization.getOgrn());
+                        checkButtonEnabled("Далее");
                         break;
                     case "Далее":
                         checkWidgetExist("Шаги создания заявки");
@@ -114,8 +115,8 @@ public class UniversalSteps {
                         checkButtonEnabled("Далее");
                         break;
                     case "Сохранить":
-                        checkButtonEnabled("Отправить на согласование");
                         WaitUtil.sleep(2000);
+                        checkButtonEnabled("Отправить на согласование");
                         break;
                 }
                 break;
@@ -226,6 +227,12 @@ public class UniversalSteps {
                 break;
             case "Исполнена":
                 statusDB="COMPLETED";
+                break;
+            case "В очереди":
+                statusDB="QUEUE";
+                break;
+            case "Отложена":
+                statusDB="POSTPONED";
                 break;
         }
         Assert.assertEquals(statusDB,new ApplicationDAO().getOptyStatus(opty.getNumber()));

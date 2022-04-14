@@ -136,6 +136,14 @@ public class CustomerEmployeeSteps {
         Context.saveObject("Сведения об объекте проверки",map2);
     }
 
+    @Тогда("заполняет дату исполнения")
+    public void fillExecutionDate(Map<String,String> map) {
+        InformationAboutCheckObject informationAboutEventPage=new InformationAboutCheckObject();
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            informationAboutEventPage.setTitleByCategory(entry.getKey(),entry.getValue());
+        }
+    }
+
     @И("перезаполняет сведения об объекте проверки")
     public void refillInfoAboutCheckObject(Map<String,String> map) {
         HashMap<String, String> eventInfo= (HashMap<String, String>) Context.getSavedObject("Сведения об объекте проверки");
@@ -166,16 +174,39 @@ public class CustomerEmployeeSteps {
         checkButtonEnabled("Заявка исполнена");
     }
 
+    @И("выбирает заявку в очереди")
+    public void chooseQueueOpty() {
+        checkWidgetExist("Мои текущие заявки");
+        Opty opty=(Opty) Context.getSavedObject("Заявка");
+        new OptysPage().chooseOpty(opty.getNumber());
+        new InfoAboutOptyPage().checkAllWidgets();
+        new InfoAboutOptyPage().checkAllOptyData((Map<String, String>) Context.getSavedObject("Информация о мероприятии"),
+                (Organization) Context.getSavedObject("Организация"),
+                (Map<String, String>) Context.getSavedObject("Сведения об объекте проверки"));
+        //checkButtonEnabled("Отправить на согласование");
+    }
+
     @И("выбирает отправленную на доработку заявку")
+    public void chooseRevisitedOpty() {
+        checkWidgetExist("Мои текущие заявки");
+        Opty opty=(Opty) Context.getSavedObject("Заявка");
+        new OptysPage().chooseOpty(opty.getNumber());
+        new InfoAboutOptyPage().checkAllWidgets();
+/*        new InfoAboutOptyPage().checkAllOptyData((Map<String, String>) Context.getSavedObject("Информация о мероприятии"),
+                (Organization) Context.getSavedObject("Организация"),
+                (Map<String, String>) Context.getSavedObject("Сведения об объекте проверки"));*/
+        checkButtonEnabled("Отправить на согласование");
+    }
+
+    @И("выбирает отклоненную заявку")
     public void chooseRejectedOpty() {
         checkWidgetExist("Мои текущие заявки");
         Opty opty=(Opty) Context.getSavedObject("Заявка");
         new OptysPage().chooseOpty(opty.getNumber());
         new InfoAboutOptyPage().checkAllWidgets();
-    /*  new InfoAboutOptyPage().checkAllOptyData((Map<String, String>) Context.getSavedObject("Информация о мероприятии"),
+        new InfoAboutOptyPage().checkAllOptyData((Map<String, String>) Context.getSavedObject("Информация о мероприятии"),
                 (Organization) Context.getSavedObject("Организация"),
-                (Map<String, String>) Context.getSavedObject("Сведения об объекте проверки")); */
-        checkButtonEnabled("Отправить на согласование");
+                (Map<String, String>) Context.getSavedObject("Сведения об объекте проверки"));
     }
 
     @И("очищает поля с данными о проверяемой организации")
