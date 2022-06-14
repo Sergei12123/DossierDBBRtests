@@ -81,7 +81,7 @@ public class DbbrEmployeeSteps {
             case "Заявка":
                 new InfoAboutOptyPage().checkAllWidgets();
                 switch (role) {
-                    case DBBR_HEAD:
+                    case DBBR_HEAD: case GVKPPD_HEAD:
                         checkButtonEnabled("Согласовать");
                         checkButtonEnabled("Отклонить");
                         break;

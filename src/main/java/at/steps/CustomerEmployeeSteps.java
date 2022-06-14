@@ -31,8 +31,14 @@ public class CustomerEmployeeSteps {
     @Когда("^создает заявку с типом (Заявка на визуальный контроль|Заявка на проверку персональных данных)")
     public void createOpty(String type){
         new MainPage().goToTab("Заявки");
-        checkButtonEnabled("Создать заявку на визуальный контроль");
-        checkButtonEnabled("Создать заявку на проверку персональных данных");
+        switch (type) {
+            case "Заявка на визуальный контроль":
+                checkButtonEnabled("Создать заявку на визуальный контроль");
+                break;
+            case "Заявка на проверку персональных данных":
+                checkButtonEnabled("Создать заявку на проверку персональных данных");
+                break;
+        }
         new CreateApplicationPage().chooseOptyType(type);
         checkWidgetExist("Шаги создания заявки");
         checkWidgetExist("Сведения о мероприятии");

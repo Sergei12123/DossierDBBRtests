@@ -42,11 +42,14 @@ public class UniversalSteps {
         Context.saveObject("Пользователь",user);
     }
 
-    @И("^выбирает роль (Сотрудник подразделения-инициатора|Руководитель подразделения-инициатора|Руководитель ДББР|Сотрудник ДББР)")
+    @И("^выбирает роль (Сотрудник подразделения-инициатора \\(ВК\\)|Сотрудник подразделения-инициатора \\(ППД\\)|Руководитель подразделения-инициатора|Руководитель ДББР|Сотрудник ДББР|Руководитель УБ/ОБ|Сотрудник ГВКиППД)")
     public void chooseRole(String role) {
         switch (role){
-            case "Сотрудник подразделения-инициатора":
-                Context.saveObject("Роль", Roles.CUSTOMER_EMPLOYEE);
+            case "Сотрудник подразделения-инициатора (ВК)":
+                Context.saveObject("Роль", Roles.CUSTOMER_EMPLOYEE_VK);
+                break;
+            case "Сотрудник подразделения-инициатора (ППД)":
+                Context.saveObject("Роль", Roles.CUSTOMER_EMPLOYEE_PPD);
                 break;
             case "Руководитель подразделения-инициатора":
                 Context.saveObject("Роль", Roles.CUSTOMER_HEAD);
@@ -56,6 +59,12 @@ public class UniversalSteps {
                 break;
             case "Сотрудник ДББР":
                 Context.saveObject("Роль", Roles.DBBR_EMPLOYEE);
+                break;
+            case "Руководитель УБ/ОБ":
+                Context.saveObject("Роль", Roles.GVKPPD_HEAD);
+                break;
+            case "Сотрудник ГВКиППД":
+                Context.saveObject("Роль", Roles.GVKPPD_EMPLOYEE);
                 break;
             default:
                 throw new StepNotImplementedException("выбирает роль", role);
@@ -125,7 +134,7 @@ public class UniversalSteps {
                     case "Далее":
                         new CheckActualInformationPage().acceptReports();
                         checkWidgetExist("Шаги создания заявки");
-                        checkWidgetExist("Загрузка документов");
+                        checkWidgetExist("Документы");
                         checkActiveStep(5);
                         checkButtonEnabled("Отменить заявку");
                         checkButtonEnabled("Отправить на согласование");
@@ -277,7 +286,7 @@ public class UniversalSteps {
                 AddDocumentsPage page=new AddDocumentsPage();
                 new MainPage().addDocument(DocPath.FIRSTDOCUMENT.getPath());
                 page.setDocName("Документ №1");
-                page.clickButton("Сохранить");
+                page.clickButton("ОК");
                 break;
         }
     }

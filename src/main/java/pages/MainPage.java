@@ -121,6 +121,7 @@ public class MainPage {
     public void addDocument(String path) {
         clickButton("Загрузить новый документ");
         File file=new File(System.getProperty("user.dir").concat(path));
+        $(byText("выберите файл")).click();
         sleep(4000);
         try {
             Robot robot=new Robot();

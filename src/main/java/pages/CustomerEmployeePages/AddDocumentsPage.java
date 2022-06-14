@@ -20,7 +20,7 @@ public class AddDocumentsPage {
     @Step("Указать название документа")
     public void setDocName(String name){
         final ElementsCollection labels = $$(byTagName("label"));
-        final Optional<SelenideElement> first = labels.stream().filter(label -> label.getText().equals("Название документа")).findFirst();
+        final Optional<SelenideElement> first = labels.stream().filter(label -> label.getText().equals("Название")).findFirst();
         first.ifPresent(el->el.parent().parent().$(byTagName("input")).setValue(name));
     }
 }

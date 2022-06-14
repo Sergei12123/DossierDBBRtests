@@ -65,20 +65,60 @@
         </organizations>
 
         <users>
-            <user alias="Администратор1">
-                <name>DivHead12</name>
+            <user alias="Сотрудник инициатор ППД">
+                <name>Add2Approve2</name>
+                <password>qwerty$4</password>
+                <role>CUSTOMER_EMPLOYEE_PPD</role>
+            </user>
+            <user alias="Сотрудник инициатор ВК">
+                <name>Add1Approve1</name>
+                <password>qwerty$4</password>
+                <role>CUSTOMER_EMPLOYEE_VK</role>
+            </user>
+            <user alias="Руководитель подразделения-инициатора ВК">
+                <name>Add3Approve10</name>
                 <password>qwerty$4</password>
                 <role>CUSTOMER_HEAD</role>
             </user>
-            <user alias="Администратор2">
-                <name>pu-aib</name>
+            <user alias="Руководитель подразделения-инициатора ППД">
+                <name>Add3Approve2</name>
+                <password>qwerty$4</password>
+                <role>CUSTOMER_HEAD</role>
+            </user>
+            <user alias="Руководитель ДББР">
+                <name>Add3Approve2</name>
                 <password>qwerty$4</password>
                 <role>DBBR_HEAD</role>
             </user>
-            <user alias="Пользователь1">
-                <name>pu-user</name>
+            <user alias="Сотрудник ДББР">
+                <name>Verificator3_1</name>
                 <password>qwerty$4</password>
                 <role>DBBR_EMPLOYEE</role>
+            </user>
+            <user alias="Руководитель ГВКиППД ВК">
+                <name>DivHead4</name>
+                <password>qwerty$4</password>
+                <role>GVKPPD_HEAD</role>
+            </user>
+            <user alias="Сотрудник ГВКиППД ВК">
+                <name>DivRiskCoord8</name>
+                <password>qwerty$4</password>
+                <role>GVKPPD_EMPLOYEE</role>
+            </user>
+            <user alias="Сотрудник ГВКиППД ВК 2">
+                <name>DivRiskCoord9</name>
+                <password>qwerty$4</password>
+                <role>GVKPPD_EMPLOYEE</role>
+            </user>
+            <user alias="Руководитель ГВКиППД ППД">
+                <name>DivHead10</name>
+                <password>qwerty$4</password>
+                <role>GVKPPD_HEAD</role>
+            </user>
+            <user alias="Сотрудник ГВКиППД ППД">
+                <name>DivRiskCoord1</name>
+                <password>qwerty$4</password>
+                <role>GVKPPD_EMPLOYEE</role>
             </user>
         </users>
     </environment>

@@ -35,6 +35,7 @@ public class ReportPage {
         Roles role= (Roles) Context.getSavedObject("Роль");
         switch (role){
             case DBBR_HEAD:
+            case GVKPPD_HEAD:
                 checkWidgetExist("Информация по отчету");
                 break;
             default:
