@@ -145,23 +145,23 @@ public class UniversalSteps {
                 switch (buttonName){
                     case "Отправить на согласование":
                     case "Отменить заявку":
-                        checkWidgetExist("Мои текущие заявки");
+                        checkWidgetExist("Список заявок");
                         break;
                 }
                 break;
             case "Заявка":
                 switch (buttonName){
                     case "Согласовать":
-                        checkWidgetExist("Мои текущие заявки");
+                        checkWidgetExist("Список заявок");
 //                        new OptysPage().checkOptyAbsence(opty.getNumber());
                         break;
                     case "На доработку":
-                        checkWidgetExist("Мои текущие заявки");
+                        checkWidgetExist("Список заявок");
                         new OptysPage().checkOptyAbsence(opty.getNumber());
                         break;
                     case "Назначить":
                         opty=(Opty) Context.getSavedObject("Заявка");
-                        checkWidgetExist("Мои текущие заявки");
+                        checkWidgetExist("Список заявок");
                         new OptysPage().checkOptyAbsence(opty.getNumber());
                         break;
                     case "Взять в обработку":
@@ -173,16 +173,16 @@ public class UniversalSteps {
                     case "В очередь":
                         new InfoAboutOptyPage().checkAllWidgets();
                         checkButtonEnabled("В работу");
-                        //new InfoAboutOptyPage().checkValueInKey("Статус","В очереди");
+                        new InfoAboutOptyPage().checkValueInKey("Статус","В очереди");
                         break;
                     case "В работу":
                         new InfoAboutOptyPage().checkAllWidgets();
-                        //new InfoAboutOptyPage().checkValueInKey("Статус","В работе");
+                        checkButtonEnabled("Уведомить о получении дополнительной информации");
+                        new InfoAboutOptyPage().checkValueInKey("Статус","В работе");
                         break;
                     case "Заявка исполнена":
                         checkWidgetExist("Заявка");
                         new InfoAboutOptyPage().checkAllWidgets();
-                        new InfoAboutOptyPage().checkValueInKey("Статус","Выполнено");
                         break;
                 }
                 break;
@@ -192,7 +192,7 @@ public class UniversalSteps {
                         checkButtonEnabled("Отправить отчет на согласование");
                         break;
                     case "Отправить отчет на согласование":
-                        checkWidgetExist("Мои текущие заявки");
+                        checkWidgetExist("Список заявок");
 //                        new OptysPage().checkOptyAbsence(opty.getNumber());
                         break;
                 }

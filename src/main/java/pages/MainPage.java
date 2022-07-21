@@ -122,7 +122,7 @@ public class MainPage {
         clickButton("Загрузить новый документ");
         File file=new File(System.getProperty("user.dir").concat(path));
         $(byText("выберите файл")).click();
-        sleep(4000);
+        sleep(2000);
         try {
             Robot robot=new Robot();
             robot.keyPress(KeyEvent.VK_ESCAPE);
@@ -130,7 +130,9 @@ public class MainPage {
         } catch (AWTException e) {
             e.printStackTrace();
         }
-        $(byAttribute("type","file")).sendKeys(file.getPath());
+        sleep(1000);
+        $(byAttribute("type","file")).should(Condition.exist).sendKeys(file.getPath());
+        sleep(2000);
     }
 
 }

@@ -6,7 +6,6 @@ import at.models.Database;
 import at.parser.Context;
 import at.utils.allure.AllureHelper;
 import com.codeborne.selenide.Selenide;
-import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.Platform;
@@ -29,6 +28,8 @@ public class HookHelper {
     private static final String DB_NAME = "dbbr_db";
     private static Environment environment;
     public static boolean ready=false;
+    private static boolean isBrowserHeadless = false;
+
     /**
      * Инициализация переменных для заданного стенда
      * @return Environment - свойство в формате xml
@@ -46,7 +47,8 @@ public class HookHelper {
      *
      */
     @Step("Инициализация браузера")
-    public static void initWebDriver() {
+    public static void initWebDriver(final boolean isHeadless) {
+        isBrowserHeadless = isHeadless;
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
         RemoteWebDriver driver = new ChromeDriver(loadBrowserCapabilities());
         driver.manage().window().maximize();
@@ -61,7 +63,8 @@ public class HookHelper {
     private static DesiredCapabilities loadBrowserCapabilities() {
         DesiredCapabilities capabilities =  new DesiredCapabilities(BrowserType.CHROME, "", Platform.ANY);
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addExtensions(new File("src/main/resources/extensions/ModifyHeaders_2.2.4_0.crx"));
+        if(isBrowserHeadless)
+            chromeOptions.addArguments("--headless");
         chromeOptions.setExperimentalOption("useAutomationExtension", false);
         chromeOptions.addArguments("--window-size=1280,1024", "--ignore-certificate-errors");
         Map<String, Object> prefs = new HashMap();

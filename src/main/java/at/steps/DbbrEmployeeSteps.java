@@ -21,7 +21,7 @@ public class DbbrEmployeeSteps {
     @Когда("выбирает назначенную заявку")
     public void selectOpty() {
         new MainPage().goToTab("Заявки");
-        checkWidgetExist("Мои текущие заявки");
+        checkWidgetExist("Список заявок");
         Opty opty = (Opty) Context.getSavedObject("Заявка");
         new OptysPage().chooseOpty(opty.getNumber());
         new InfoAboutOptyPage().checkAllWidgets();
@@ -64,8 +64,10 @@ public class DbbrEmployeeSteps {
                 new ReportPage().checkAllWidgets();
                 checkButtonEnabled("Загрузить новый документ");
                 switch (role) {
-                    case DBBR_EMPLOYEE:
-                        checkButtonEnabled("Сохранить");
+                    case DBBR_EMPLOYEE: case GVKPPD_EMPLOYEE:
+                        checkWidgetExist("Отчёт по мероприятию");
+                        checkWidgetExist("Загрузка файлов");
+                        checkWidgetExist("Файлы");
                         break;
                     case DBBR_HEAD:
                         Map<String, String> map = (Map<String, String>) Context.getSavedObject("Отчет по мероприятию");

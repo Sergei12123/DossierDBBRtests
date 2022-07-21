@@ -78,7 +78,7 @@ public class CustomerEmployeeSteps {
             informationAboutEventPage.chooseTitleByCategory(entry.getKey(),entry.getValue());
         }
         Context.saveObject("Информация о мероприятии",new HashMap<>(map));
-        checkTextInTextField("Срок исполнения","10");
+//        checkTextInTextField("Срок исполнения","10");
     }
 
     @Тогда("перезаполняет сведения о мероприятии")
@@ -169,7 +169,7 @@ public class CustomerEmployeeSteps {
 
     @И("выбирает согласованную заявку")
     public void chooseCompletedOpty() {
-        checkWidgetExist("Мои текущие заявки");
+        checkWidgetExist("Список заявок");
         Opty opty=(Opty) Context.getSavedObject("Заявка");
         new OptysPage().chooseOpty(opty.getNumber());
         new InfoAboutOptyPage().checkAllWidgets();
@@ -182,7 +182,7 @@ public class CustomerEmployeeSteps {
 
     @И("выбирает заявку в очереди")
     public void chooseQueueOpty() {
-        checkWidgetExist("Мои текущие заявки");
+        checkWidgetExist("Список заявок");
         Opty opty=(Opty) Context.getSavedObject("Заявка");
         new OptysPage().chooseOpty(opty.getNumber());
         new InfoAboutOptyPage().checkAllWidgets();
@@ -194,7 +194,7 @@ public class CustomerEmployeeSteps {
 
     @И("выбирает отправленную на доработку заявку")
     public void chooseRevisitedOpty() {
-        checkWidgetExist("Мои текущие заявки");
+        checkWidgetExist("Список заявок");
         Opty opty=(Opty) Context.getSavedObject("Заявка");
         new OptysPage().chooseOpty(opty.getNumber());
         new InfoAboutOptyPage().checkAllWidgets();
@@ -206,7 +206,7 @@ public class CustomerEmployeeSteps {
 
     @И("выбирает отклоненную заявку")
     public void chooseRejectedOpty() {
-        checkWidgetExist("Мои текущие заявки");
+        checkWidgetExist("Список заявок");
         Opty opty=(Opty) Context.getSavedObject("Заявка");
         new OptysPage().chooseOpty(opty.getNumber());
         new InfoAboutOptyPage().checkAllWidgets();

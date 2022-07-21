@@ -17,7 +17,7 @@ public class ExecHeadSteps {
     @Когда("выбирает сформированную заявку")
     public void selectFormedOpty(){
         new MainPage().goToTab("Заявки");
-        checkWidgetExist("Мои текущие заявки");
+        checkWidgetExist("Список заявок");
         Opty opty=(Opty) Context.getSavedObject("Заявка");
         new OptysPage().chooseOpty(opty.getNumber());
         checkButtonEnabled("Назначить");
@@ -54,6 +54,12 @@ public class ExecHeadSteps {
         Opty opty=(Opty) Context.getSavedObject("Заявка");
     }
 
+    @И("выбирает второго исполнителя {string}")
+    public void chooseAddExecutor(String executor2) {
+        new InfoAboutOptyPage().chooseAddExecutor(executor2);
+        Opty opty=(Opty) Context.getSavedObject("Заявка");
+    }
+
     @И("выбирает исполнителя рекламации {string}")
     public void chooseExecutorCompl(String executor) {
         new InfoAboutOptyPage().chooseExecutor(executor);
@@ -63,7 +69,7 @@ public class ExecHeadSteps {
     @И("выбирает заявку в работе")
     public void chooseRejectedOpty() {
         new MainPage().goToTab("Заявки");
-        checkWidgetExist("Мои текущие заявки");
+        checkWidgetExist("Список заявок");
         Opty opty=(Opty) Context.getSavedObject("Заявка");
         new OptysPage().chooseOpty(opty.getNumber());
         //TODO: добавить проверку виджета "Результаты обработки заявки"
@@ -81,7 +87,7 @@ public class ExecHeadSteps {
     @И("выбирает заявку с результатом")
     public void chooseExecutedOpty() {
         new MainPage().goToTab("Заявки");
-        checkWidgetExist("Мои текущие заявки");
+        checkWidgetExist("Список заявок");
         Opty opty=(Opty) Context.getSavedObject("Заявка");
         new OptysPage().chooseOpty(opty.getNumber());
         new InfoAboutOptyPage().checkAllWidgets();

@@ -18,5 +18,13 @@
       <jdbc-url>jdbc:oracle:thin:@//10.1.6.6:1521/OLTP</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="ЗР ДББР ЦСУД" uuid="9ba1660f-95f2-4c02-b4a4-966121ce4442">
+      <driver-ref>oracle.19</driver-ref>
+      <synchronize>true</synchronize>
+      <auto-commit>false</auto-commit>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@//10.1.6.6:1521/DM</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

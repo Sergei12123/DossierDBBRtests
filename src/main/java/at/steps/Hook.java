@@ -20,6 +20,8 @@ import lombok.extern.log4j.Log4j2;
  */
 @Log4j2
 public class Hook {
+    public static boolean isHeadless=false;
+
     /**
      * Подключение к базе данных
      */
@@ -29,13 +31,15 @@ public class Hook {
     }
 
     @Before(order = 2)
-    public void initializeBrowser() {
-        HookHelper.initWebDriver();
-    }
-    @Before(order = 3)
     public void setConfigTimeout() {
         Configuration.timeout=40000;
         HookHelper.ready=true;
+        isHeadless=false;
+    }
+
+    @Before(order = 3)
+    public void initializeBrowser() {
+        HookHelper.initWebDriver(isHeadless);
     }
 
     /**

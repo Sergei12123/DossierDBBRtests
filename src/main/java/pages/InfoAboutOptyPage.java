@@ -21,7 +21,13 @@ public class InfoAboutOptyPage {
 
     @Step("Выбрать исполнителя")
     public void chooseExecutor(String executor) {
-        $(byAttribute("aria-label","icon: paper-clip")).click();
+        $(byText("Сотрудник")).parent().parent().$(byAttribute("aria-label","icon: paper-clip")).click();
+        $$(byTagName("td")).find(Condition.text(executor)).click();
+    }
+
+    @Step("Выбрать второго исполнителя")
+    public void chooseAddExecutor(String executor) {
+        $(byText("Второй исполнитель")).parent().parent().$(byAttribute("aria-label","icon: paper-clip")).click();
         $$(byTagName("td")).find(Condition.text(executor)).click();
     }
 
@@ -38,7 +44,7 @@ public class InfoAboutOptyPage {
     public void checkAllOptyData(Map<String,String> infoAboutEvent, Organization infoAboutOrg, Map<String,String> infoAboutCheckObject){
         checkInfoAboutEvent(infoAboutEvent);
         checkInfoAboutOrganization(infoAboutOrg);
-        checkInfoAboutCheckObject(infoAboutCheckObject);
+//        checkInfoAboutCheckObject(infoAboutCheckObject);
     }
 
     @Step("Проверить сведения о мероприятии")
@@ -78,11 +84,10 @@ public class InfoAboutOptyPage {
 
     @Step("Проверить что в пункте {0} указано значение {1}")
     public void checkValueInKey(String key,String value) {
-        String text=$(byText("Информация о заявке")).parent().parent().find(byText("Статус")).parent().parent().lastChild().getText();
+        String text=$(byText("Информация о заявке")).parent().parent().find(byText(key)).shouldBe(Condition.exist).parent().parent().lastChild().getText();
         if(!text.equals(value)){
-            WaitUtil.sleep(1000);
             refresh();
-            text=$(byText("Информация о заявке")).parent().parent().find(byText("Статус")).parent().parent().lastChild().getText();
+            text=$(byText("Информация о заявке")).parent().parent().find(byText(key)).shouldBe(Condition.exist).parent().parent().lastChild().getText();
         }
         Assert.assertEquals(key+" не совпал c ожидаемым",value,text);
     }
